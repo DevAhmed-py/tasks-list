@@ -1,10 +1,16 @@
 {
   "tasks": [
     {
-      "text": "coding",
-      "day": "at 2pm",
+      "text": "Python project",
+      "day": "Wednesday at 5pm",
+      "reminder": true,
+      "id": 2
+    },
+    {
+      "text": "Football game",
+      "day": "Friday at 6pm",
       "reminder": false,
-      "id": 1
+      "id": 3
     }
   ]
 }
