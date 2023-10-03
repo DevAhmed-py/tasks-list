@@ -1,5 +1,5 @@
-import { useState } from "react";
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { useEffect, useState } from "react";
+import {BrowserRouter as Router, Route, Routes, json} from 'react-router-dom'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./components/About";
@@ -9,38 +9,50 @@ import AddTask from "./components/AddTask";
 function App() {
 
   const [showAdd, setShowAdd] = useState(false)
+  const [tasks, setTasks] = useState([])
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Doctor's visit",
-      day: "April 10th at 4pm",
-      reminder: false
-    },
-    {
-      id: 2,
-      text: "Travelling",
-      day: "July 25th at 12pm",
-      reminder: false
+  useEffect(() => {
+    const getTasks = async () => {
+      const fromServer = await fetchTasks()
+      setTasks(fromServer)
     }
-  ])
+
+    getTasks()
+  }, [])
+
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+
+    return data
+  }
 
   const toggleReminder = (id) => {
     setTasks(tasks.map((task) => task.id === id ? 
     {...task, reminder: !task.reminder} : task))
   }
 
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+
+    await fetch(`http://localhost:5000/tasks/${id}`, 
+    {method: 'DELETE'})
+
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
-  const onAdd = (task) => {
-    const max = 100;
-    const min = 3;
-    const id = Math.trunc(Math.random() * (max - min + 1) + min)
+  const onAdd = async (task) => {
 
-    const newTask = {id, ...task}
-    setTasks([...tasks, newTask])
+    const res = await fetch('http://localhost:5000/tasks', 
+    {method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(task),
+    })
+
+    const data = res.json()
+
+    setTasks([...tasks, data])
   }
 
 

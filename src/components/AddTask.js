@@ -36,7 +36,7 @@ const AddTask = ({onAdd}) => {
             value={day} onChange={(e) => setDay(e.target.value)} />
         </div>
         <div className='form-control form-control-check'>
-            <label htmlFor="Task"> Set Reminder </label>
+            <label htmlFor="Task"> Set Reminder of completion (click for the completed tasks) </label> 
             <input type="checkbox" checked={reminder} value={reminder} 
             onChange={(e) => setReminder(e.currentTarget.checked)}/>
         </div>

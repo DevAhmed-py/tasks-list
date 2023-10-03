@@ -12,7 +12,7 @@ const Header = ({title, onShow, showAddTask}) => {
             <h1> {title} </h1>
             { location.pathname === '/' && <Button onShow= {onShow} 
             color={showAddTask ? 'red' : 'green'} 
-            text={showAddTask ? 'Close' : 'Add'} /> }
+            text={showAddTask ? 'Collapse' : 'Add'} /> }
         </header>
     </div>
   )
