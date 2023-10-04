@@ -8,7 +8,7 @@ import AddTask from "./components/AddTask";
 
 function App() {
 
-  const [showAdd, setShowAdd] = useState(false)
+  const [showAdd, setShowAdd] = useState(true)
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function App() {
   return (
     <Router> 
       <div className="container">
-        <Header onShow= {() => setShowAdd(!showAdd)} showAddTask= {showAdd} title='Task Tracker' />
+        <Header onShow= {() => setShowAdd(!showAdd)} showAddTask= {showAdd} title='Tasks List' />
         <Routes>
           <Route path="/" element={
             <>
